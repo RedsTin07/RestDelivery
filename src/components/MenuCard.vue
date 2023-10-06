@@ -6,13 +6,13 @@ const props = defineProps({
 });
 </script>
 <template>
-  <div class="card">
+  <div class="card" :class="`${product.available ? '' : 'soldout'}`">
     <div class="tag"><h2>SOLD OUT</h2></div>
     <div class="imagen"><img :src="product.image_url" /></div>
     <div>
       <h1>{{ product.product }}</h1>
       <h2>{{ product.description }}</h2>
-      <h2>{{ product.price }}</h2>
+      <h3>{{ product.price }}</h3>
     </div>
   </div>
 </template>
@@ -29,6 +29,12 @@ const props = defineProps({
   flex-direction: column;
   padding: 2rem;
   position: relative;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+.card:hover {
+  background: rgba(217, 217, 217, 0.81);
 }
 
 .imagen {
@@ -42,11 +48,18 @@ img {
   object-fit: cover;
   width: 100%;
   height: 100%;
+  transition: 0.5s ease;
+}
+
+img:hover {
+  width: 105%;
+  height: 105%;
+  transform: translate(-2.5%, -2.5%);
 }
 
 h1 {
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 h2 {
@@ -54,7 +67,16 @@ h2 {
   font-weight: 200;
 }
 
+h3 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
 .tag {
+  display: none;
+}
+
+.soldout .tag {
   width: 10rem;
   height: 2.5rem;
   background-color: var(--nodisponible);
@@ -66,5 +88,10 @@ h2 {
   align-items: center;
   justify-content: center;
   color: var(--white);
+  z-index: 1;
+}
+
+.soldout img {
+  filter: grayscale(100%);
 }
 </style>
